@@ -79,10 +79,7 @@ const JiraIntegration = () => {
         {
           method: 'GET',
           headers: {
-            Authorization: `Basic ${Buffer.from(
-              'm.abdelsabour.intern@wecodeforyou.io:ATATT3xFfGF0-A2w31818bbrAQxAcTnfaKnjrOPCKsyOlLnxfsoTlWR2p9TUFS87HEN4wAy7qhRw73bgx-zUGOcUnBkaV6ABT7KRcDSmQADLLBzfwzo4qlwrAMCRhTkfmbm0iMAfLux8mUHO4r_S6w91ahovTHiFFtA2gHMTjqM0mGkLItdROUg=287FB2E0',
-              'utf-8'
-            ).toString('base64')}`,
+            Authorization: createAuthHeader(email, apiToken),
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
