@@ -1,5 +1,4 @@
 import { useLang } from '@hooks/useLang';
-import Button from '@ui/common/Button';
 import { Input } from '@ui/common/CustomInputs';
 import { cn } from '@utils/cn';
 import {
@@ -12,6 +11,7 @@ import type { RootState } from 'infrastructure/rtk/store/store';
 import { Columns2, List, Plus, Search } from 'lucide-react';
 import { type FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '~/components/ui/button';
 
 interface IssuesFiltersProps {}
 
