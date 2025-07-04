@@ -26,10 +26,13 @@ const JiraIntegration = () => {
   const [error, setError] = useState('');
   const [connected, setConnected] = useState(false);
   const [showToken, setShowToken] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(['jiraCredentials', 'jiraUserInfo']);
+  const [cookies, setCookie, removeCookie] = useCookies([
+    'jiraCredentials',
+    'jiraUserInfo',
+  ]);
 
   const navigator = useNavigate();
-  const {lang} = useLang();
+  const { lang } = useLang();
 
   const saveCredentials = (creds: typeof credentials) => {
     setCookie('jiraCredentials', JSON.stringify(creds), {
@@ -75,7 +78,7 @@ const JiraIntegration = () => {
       }
 
       const baseUrl = domain.startsWith('http') ? domain : `https://${domain}`;
-      const url = `https://cors-anywhere.herokuapp.com/${baseUrl}/rest/api/3/myself`;
+      const url = `${baseUrl}/rest/api/3/myself`;
 
       const response = await fetch(url, {
         method: 'GET',
@@ -146,12 +149,18 @@ const JiraIntegration = () => {
         <h2 className="text-2xl font-bold text-white mb-2 bg-gradient-to-r from-[#fea108] via-[#2cdc46] to-[#aa8e67] bg-clip-text text-transparent animate-gradient-x">
           Jira Integration
         </h2>
-        <p className="text-white/80">Connect to your Jira instance using your credentials</p>
+        <p className="text-white/80">
+          Connect to your Jira instance using your credentials
+        </p>
       </div>
 
       {/* Connection Status */}
       <motion.div
-        className={`mb-6 p-4 rounded-lg border ${connected ? 'bg-[#2cdc46]/20 border-[#2cdc46]' : 'bg-[#aa8e67]/20 border-[#aa8e67]'}`}
+        className={`mb-6 p-4 rounded-lg border ${
+          connected
+            ? 'bg-[#2cdc46]/20 border-[#2cdc46]'
+            : 'bg-[#aa8e67]/20 border-[#aa8e67]'
+        }`}
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ type: 'spring', stiffness: 200, damping: 20 }}
@@ -182,7 +191,13 @@ const JiraIntegration = () => {
               </motion.span>
             )}
           </AnimatePresence>
-          <span className={`font-medium ${connected ? 'text-[#2cdc46]' : 'text-white'}`}>{connected ? 'Connected to Jira' : 'Not Connected'}</span>
+          <span
+            className={`font-medium ${
+              connected ? 'text-[#2cdc46]' : 'text-white'
+            }`}
+          >
+            {connected ? 'Connected to Jira' : 'Not Connected'}
+          </span>
         </div>
         {userInfo && (
           <motion.div
@@ -198,7 +213,11 @@ const JiraIntegration = () => {
 
       {/* Credentials Form */}
       <div className="space-y-4 mb-6 relative z-10">
-        <motion.div initial={{ x: -30, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.1 }}>
+        <motion.div
+          initial={{ x: -30, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.1 }}
+        >
           <label className="block text-sm font-medium text-white mb-2">
             <User className="w-4 h-4 inline mr-1 animate-bounce-slow" />
             Email Address
@@ -214,7 +233,11 @@ const JiraIntegration = () => {
           />
         </motion.div>
 
-        <motion.div initial={{ x: 30, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.2 }}>
+        <motion.div
+          initial={{ x: 30, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
           <label className="block text-sm font-medium text-white mb-2">
             <Key className="w-4 h-4 inline mr-1 animate-spin-slow" />
             API Token
@@ -243,10 +266,16 @@ const JiraIntegration = () => {
               )}
             </motion.button>
           </div>
-          <p className="text-xs text-gray-500 mt-1">Generate at: Account Settings → Security → API Tokens</p>
+          <p className="text-xs text-gray-500 mt-1">
+            Generate at: Account Settings → Security → API Tokens
+          </p>
         </motion.div>
 
-        <motion.div initial={{ x: -30, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.3 }}>
+        <motion.div
+          initial={{ x: -30, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
           <label className="block text-sm font-medium text-white mb-2">
             <Globe className="w-4 h-4 inline mr-1 animate-pulse-slow" />
             Jira Domain
@@ -273,12 +302,20 @@ const JiraIntegration = () => {
           </motion.div>
         )}
 
-        <motion.div className="flex gap-3" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
+        <motion.div
+          className="flex gap-3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
           <motion.button
             onClick={handleConnect}
             disabled={loading || connected}
             className="flex-1 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-200 border border-white/20 text-white font-semibold px-4 py-2 rounded-md hover:scale-105 active:scale-95 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-            whileHover={{ scale: 1.05, boxShadow: '0 4px 24px 0 rgba(44,220,70,0.15)' }}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: '0 4px 24px 0 rgba(44,220,70,0.15)',
+            }}
             whileTap={{ scale: 0.97 }}
           >
             {loading ? 'Connecting...' : connected ? 'Connected' : 'Connect'}
