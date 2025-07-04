@@ -19,7 +19,6 @@ export function getApiInstance(credentials: JiraCredentials) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
     },
   });
 }
@@ -83,6 +82,7 @@ export async function getAssignedIssues(
     statusFilter?: 'all' | 'todo' | 'inprogress' | 'done';
     maxResults?: number;
     startAt?: number;
+    sortBy?: 'created' | 'updated';
   } = {}
 ): Promise<JiraPaginatedIssuesResponse> {
   try {
@@ -91,6 +91,7 @@ export async function getAssignedIssues(
       statusFilter = 'all',
       maxResults = 50,
       startAt = 0,
+      sortBy = 'updated',
     } = options;
 
     const api = getApiInstance(credentials);
@@ -114,7 +115,11 @@ export async function getAssignedIssues(
       // 'all' case doesn't need additional filtering
     }
 
-    const fields = 'summary,issuetype,status,assignee,created,updated';
+    // Add sorting by created or updated date
+    jql += ` ORDER BY ${sortBy} DESC`;
+
+    const fields =
+      'summary,issuetype,status,assignee,created,updated,timetracking,priority,project';
 
     const response = await api.get('/rest/api/3/search', {
       params: {
@@ -131,6 +136,27 @@ export async function getAssignedIssues(
       startAt: response.data.startAt,
       maxResults: response.data.maxResults,
     };
+  } catch (error) {
+    handleError(error);
+    throw error;
+  }
+}
+
+export async function getIssueByKey(
+  credentials: JiraCredentials,
+  issueKey: string
+): Promise<JiraIssue> {
+  try {
+    const api = getApiInstance(credentials);
+    const fields =
+      'summary,issuetype,status,assignee,created,updated,timetracking,priority,project';
+
+    const response = await api.get(`/rest/api/3/issue/${issueKey}`, {
+      params: {
+        fields,
+      },
+    });
+    return response.data;
   } catch (error) {
     handleError(error);
     throw error;

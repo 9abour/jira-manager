@@ -1,10 +1,13 @@
 export interface InputProps {
   type: string;
+  id?: string;
   placeholder: string;
   required?: boolean;
   name: string;
   className?: string;
   value?: string;
+  disabled?: boolean;
+  autoFocus?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   defaultValue?: string;
   onKeyPress?: (e: React.KeyboardEvent<HTMLInputElement>) => void;

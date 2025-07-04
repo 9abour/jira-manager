@@ -11,7 +11,8 @@
     "inProgress": "In Progress",
     "done": "Done",
     "noIssues": "No issues",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "hitEnterToSearch": "Hit enter to search"
   },
 
   "pages": {

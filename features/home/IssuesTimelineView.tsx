@@ -9,8 +9,14 @@ import { setTimelineSearchResults } from 'infrastructure/rtk/slices/filtersReduc
 import { useTimelineIssuesLoader } from '~/pages/hooks/useTimelineIssuesLoader';
 import useAssignedJiraIssues from '@hooks/useAssignedJiraIssues';
 import TimelinePagination from 'features/home/TimelinePagination';
+import {
+  setIsModalOpen,
+  setIssueToLogWork,
+} from 'infrastructure/rtk/slices/logWorkReducer';
 
 const StoryCard = ({ issue }: { issue: JiraIssue }) => {
+  const dispatch = useDispatch();
+
   return (
     <motion.button
       whileHover={{
@@ -23,6 +29,10 @@ const StoryCard = ({ issue }: { issue: JiraIssue }) => {
       transition={{ type: 'spring', stiffness: 200, damping: 20 }}
       className="w-full h-[150px] flex flex-col justify-between bg-white shadow-sm border border-gray-light rounded-md hover:shadow-md p-2 backdrop-blur-md"
       style={{ background: 'rgba(255,255,255,0.85)' }}
+      onClick={() => {
+        dispatch(setIsModalOpen(true));
+        dispatch(setIssueToLogWork(issue));
+      }}
     >
       <h3 className="text-start font-semibold text-primary-darkTitle text-lg line-clamp-3">
         {issue.fields.summary}

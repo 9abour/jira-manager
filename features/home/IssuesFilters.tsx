@@ -1,4 +1,5 @@
 import { useLang } from '@hooks/useLang';
+import Button from '@ui/common/button';
 import { Input } from '@ui/common/CustomInputs';
 import { cn } from '@utils/cn';
 import {
@@ -7,20 +8,21 @@ import {
   setSearchValue,
   setTimelineSearchResults,
 } from 'infrastructure/rtk/slices/filtersReducer';
+import {
+  setIsModalOpen,
+  setIssueToLogWork,
+} from 'infrastructure/rtk/slices/logWorkReducer';
 import type { RootState } from 'infrastructure/rtk/store/store';
 import { Columns2, List, Plus, Search } from 'lucide-react';
-import { type FunctionComponent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from '~/components/ui/button';
 
-interface IssuesFiltersProps {}
-
-const IssuesFilters: FunctionComponent<IssuesFiltersProps> = () => {
+const IssuesFilters = () => {
   const { t } = useLang();
 
   const { issuesViewType, isLoading: isLoadingFilters } = useSelector(
     (state: RootState) => state.filters
   );
+
   const dispatch = useDispatch();
 
   const handleViewTypeChange = (viewType: string) => {
@@ -28,9 +30,17 @@ const IssuesFilters: FunctionComponent<IssuesFiltersProps> = () => {
     localStorage.setItem('issuesViewType', viewType);
   };
 
+  const handleLogWork = async () => {
+    dispatch(setIssueToLogWork(null));
+    dispatch(setIsModalOpen(true));
+  };
+
   return (
     <section className="flex items-center gap-2">
-      <Button className="flex items-center justify-center gap-1 px-2">
+      <Button
+        onClick={handleLogWork}
+        className="flex items-center justify-center gap-1 px-2"
+      >
         <Plus strokeWidth={3} size={15} /> {t.common.logWork}
       </Button>
 
@@ -74,7 +84,7 @@ const IssuesFilters: FunctionComponent<IssuesFiltersProps> = () => {
         <Input
           type="search"
           name="search"
-          placeholder={t.common.search}
+          placeholder={t.common.hitEnterToSearch}
           onChange={(e) => {
             const searchValue = e.target.value;
 

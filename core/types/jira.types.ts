@@ -80,6 +80,12 @@ export interface JiraBug {
       entityId: string;
       hierarchyLevel: number;
     };
+    timetracking: {
+      remainingEstimate: string;
+      timeSpent: string;
+      remainingEstimateSeconds: number;
+      timeSpentSeconds: number;
+    };
     created: string;
     assignee: {
       self: string;
@@ -109,6 +115,26 @@ export interface JiraBug {
         key: string;
         colorName: string;
         name: string;
+      };
+    };
+    priority: {
+      self: string;
+      iconUrl: string;
+      name: string;
+      id: string;
+    };
+    project: {
+      self: string;
+      id: string;
+      key: string;
+      name: string;
+      projectTypeKey: string;
+      simplified: boolean;
+      avatarUrls: {
+        '48x48': string;
+        '24x24': string;
+        '16x16': string;
+        '32x32': string;
       };
     };
   };
@@ -132,6 +158,12 @@ export interface JiraTask {
       entityId: string;
       hierarchyLevel: number;
     };
+    timetracking: {
+      remainingEstimate: string;
+      timeSpent: string;
+      remainingEstimateSeconds: number;
+      timeSpentSeconds: number;
+    };
     created: string;
     assignee: {
       self: string;
@@ -161,6 +193,26 @@ export interface JiraTask {
         key: string;
         colorName: string;
         name: string;
+      };
+    };
+    priority: {
+      self: string;
+      iconUrl: string;
+      name: string;
+      id: string;
+    };
+    project: {
+      self: string;
+      id: string;
+      key: string;
+      name: string;
+      projectTypeKey: string;
+      simplified: boolean;
+      avatarUrls: {
+        '48x48': string;
+        '24x24': string;
+        '16x16': string;
+        '32x32': string;
       };
     };
   };
@@ -184,6 +236,12 @@ export interface JiraStory {
       entityId: string;
       hierarchyLevel: number;
     };
+    timetracking: {
+      remainingEstimate: string;
+      timeSpent: string;
+      remainingEstimateSeconds: number;
+      timeSpentSeconds: number;
+    };
     created: string;
     assignee: {
       self: string;
@@ -213,6 +271,26 @@ export interface JiraStory {
         key: string;
         colorName: string;
         name: string;
+      };
+    };
+    priority: {
+      self: string;
+      iconUrl: string;
+      name: string;
+      id: string;
+    };
+    project: {
+      self: string;
+      id: string;
+      key: string;
+      name: string;
+      projectTypeKey: string;
+      simplified: boolean;
+      avatarUrls: {
+        '48x48': string;
+        '24x24': string;
+        '16x16': string;
+        '32x32': string;
       };
     };
   };

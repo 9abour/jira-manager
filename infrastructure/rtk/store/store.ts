@@ -8,12 +8,15 @@ import issuesByStatsReducer, {
 import issuesFiltersReducer, {
   type FiltersReducerStateTypes,
 } from 'infrastructure/rtk/slices/filtersReducer';
+import logWorkReducer, {
+  type LogWorkReducerStateTypes,
+} from 'infrastructure/rtk/slices/logWorkReducer';
 
 interface StoreState {
   issuesByStats: IssuesByStatusReducerStateTypes;
   issuesByType: IssuesByTypeReducerStateTypes;
-  // logWork: any;
   filters: FiltersReducerStateTypes;
+  logWork: LogWorkReducerStateTypes;
 }
 
 export const ReduxStore = configureStore<StoreState>({
@@ -21,7 +24,7 @@ export const ReduxStore = configureStore<StoreState>({
     issuesByStats: issuesByStatsReducer,
     issuesByType: issuesByTypeReducer,
     filters: issuesFiltersReducer,
-    // logWork: logWorkReducer,
+    logWork: logWorkReducer,
   },
 });
 

@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { DayPicker } from 'react-day-picker';
 
 import { cn } from '@utils/cn';
-import { buttonVariants } from './button';
+import { buttonVariants } from '~/components/ui/button';
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -33,7 +33,7 @@ function Calendar({
         head_row: 'flex',
         head_cell:
           'text-gray-500 rounded-md w-8 font-normal text-[0.8rem] dark:text-gray-400',
-        row: 'flex w-full mt-2',
+        row: 'flex justify-between w-full mt-2',
         cell: cn(
           'relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-gray-100 [&:has([aria-selected].day-outside)]:bg-gray-100/50 [&:has([aria-selected].day-range-end)]:rounded-r-md dark:[&:has([aria-selected])]:bg-gray-800 dark:[&:has([aria-selected].day-outside)]:bg-gray-800/50',
           props.mode === 'range'
@@ -47,7 +47,7 @@ function Calendar({
         day_range_start: 'day-range-start',
         day_range_end: 'day-range-end',
         day_selected:
-          'bg-gray-900 text-gray-50 hover:bg-gray-900 hover:text-gray-50 focus:bg-gray-900 focus:text-gray-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50 dark:hover:text-gray-900 dark:focus:bg-gray-50 dark:focus:text-gray-900',
+          'bg-primary text-white hover:bg-primary hover:text-white focus:bg-primary focus:text-white dark:bg-primary dark:text-white dark:hover:bg-primary dark:hover:text-white dark:focus:bg-primary dark:focus:text-white',
         day_today:
           'bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-gray-50',
         day_outside:

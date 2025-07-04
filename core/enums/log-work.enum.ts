@@ -1,0 +1,4 @@
+export const LOG_WORK_STEPS = {
+  LOG_WITH_KEY: 'LOG_WITH_KEY',
+  LOG_WITHOUT_KEY: 'LOG_WITHOUT_KEY',
+};

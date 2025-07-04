@@ -9,6 +9,7 @@ import Navbar from '@ui/theme/layouts/Navbar';
 import { Provider as ReduxProvider } from 'react-redux';
 import { ReduxStore } from 'infrastructure/rtk/store/store';
 import { Toaster } from 'react-hot-toast';
+import TimeLoggerModal from 'features/home/TimeLoggerModal';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -36,11 +37,12 @@ export function AppLayout({ children }: AppLayoutProps) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="relative">
         <CookiesProvider>
           <Theme appearance={resolvedTheme}>
             <QueryClientProvider client={queryClient}>
               <ReduxProvider store={ReduxStore}>
+                <TimeLoggerModal />
                 <Navbar />
                 {children}
               </ReduxProvider>
