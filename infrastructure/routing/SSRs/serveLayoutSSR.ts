@@ -22,8 +22,25 @@ export const serveLayoutSSR = async ({ request }: Route.LoaderArgs) => {
   // Language extraction with proper error handling
   const { lang, t, redirect: redirectToDefaultLang } = extractLang(request);
 
+  const jiraCredentials = getCookie(request, 'jiraCredentials');
+  const jiraUserInfo = getCookie(request, 'jiraUserInfo');
+
+  const url = new URL(request.url);
+  const connectToJiraPathMatch = url.pathname.includes(`/connect/jira`);
+
+  // Redirect to default language if needed
   if (redirectToDefaultLang) {
     return redirect(`/${DEFAULT_LANG}`);
+  }
+
+  // Redirect to home page if already connected
+  if (connectToJiraPathMatch && (jiraCredentials || jiraUserInfo)) {
+    return redirect(`/${lang}`);
+  }
+
+  // Redirect to Jira connection page if needed
+  if (!connectToJiraPathMatch && (!jiraCredentials || !jiraUserInfo)) {
+    return redirect(`/${lang}/connect/jira`);
   }
 
   // Theme cookie extraction with fallback

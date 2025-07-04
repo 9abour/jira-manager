@@ -9,6 +9,7 @@ import { serveLayoutSSR } from 'infrastructure/routing/SSRs/serveLayoutSSR';
 import { AppLayout } from 'ui/theme/layouts/AppLayout';
 import { ErrorBoundaryFunc } from 'ui/errors/ErrorBoundary';
 import { useLang } from '@hooks/useLang';
+import { NavigationProgress } from '@ui/common/NavigationProgress';
 
 export const links = () => [
   { rel: 'stylesheet', href: stylesheet },
@@ -31,6 +32,7 @@ export default function App() {
   return (
     <LanguageContext.Provider value={d}>
       <AppLayout>
+        <NavigationProgress />
         <Outlet />
         <Toaster position="bottom-right" />
       </AppLayout>

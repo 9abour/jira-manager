@@ -11,7 +11,8 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#253B80',
+          DEFAULT: '#037de9',
+          darkTitle: '#2a2827',
         },
         green: {
           DEFAULT: '#009548',
@@ -22,6 +23,9 @@ export default {
           dark: '#808080',
           DEFAULT: '#F1F1F1',
         },
+      },
+      fontFamily: {
+        ubuntu: ['Ubuntu', 'system-ui', 'sans-serif'],
       },
     },
   },

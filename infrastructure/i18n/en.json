@@ -1,5 +1,22 @@
 {
   "meta": {
-    "home": "Home - Jira Manager"
+    "home": "Home - Jira Manager",
+    "connectToJira": "Connect to Jira"
+  },
+
+  "common": {
+    "logWork": "Log Work",
+    "search": "Search",
+    "toDo": "To Do",
+    "inProgress": "In Progress",
+    "done": "Done",
+    "noIssues": "No issues",
+    "loading": "Loading..."
+  },
+
+  "pages": {
+    "home": {
+      "assignedIssues": "Assigned Issues"
+    }
   }
 }

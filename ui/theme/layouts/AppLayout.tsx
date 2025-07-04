@@ -4,6 +4,11 @@ import { Theme } from '@radix-ui/themes';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from 'core/utils/queryClient';
 import useAppLayout from 'ui/theme/layouts/hooks/useAppLayout';
+import { CookiesProvider } from 'react-cookie';
+import Navbar from '@ui/theme/layouts/Navbar';
+import { Provider as ReduxProvider } from 'react-redux';
+import { ReduxStore } from 'infrastructure/rtk/store/store';
+import { Toaster } from 'react-hot-toast';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -32,13 +37,19 @@ export function AppLayout({ children }: AppLayoutProps) {
         <Links />
       </head>
       <body>
-        <Theme appearance={resolvedTheme}>
-          <QueryClientProvider client={queryClient}>
-            {children}
-          </QueryClientProvider>
-        </Theme>
-        <ScrollRestoration />
-        <Scripts />
+        <CookiesProvider>
+          <Theme appearance={resolvedTheme}>
+            <QueryClientProvider client={queryClient}>
+              <ReduxProvider store={ReduxStore}>
+                <Navbar />
+                {children}
+              </ReduxProvider>
+            </QueryClientProvider>
+          </Theme>
+          <ScrollRestoration />
+          <Scripts />
+        </CookiesProvider>
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );

@@ -1,61 +1,28 @@
-import type { AxiosInstance, AxiosResponse } from 'axios';
 import axios from 'axios';
 
 const isServer = typeof window === 'undefined';
 
-/**
- * Creates a configured Axios instance with interceptors
- */
-const createApi = (): AxiosInstance => {
-  const instance = axios.create({
-    baseURL: import.meta.env.VITE_BASE_URL,
-    timeout: 10000, // 10 second timeout
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
+const api = axios.create({
+  baseURL: `${import.meta.env.VITE_BASE_URL}/api`,
+});
 
-  // Request interceptor
-  instance.interceptors.request.use((config) => {
-    // Server-side requests skip client-side modifications
-    if (isServer) return config;
+export const apiWithoutLocale = axios.create({
+  baseURL: `${import.meta.env.VITE_BASE_URL}/api`,
+});
 
-    // Add locale from URL path
-    const locale = window.location.pathname.split('/')[1];
-    if (locale) {
-      config.params = {
-        ...config.params,
-        locale,
-      };
-    }
+api.interceptors.request.use((config) => {
+  if (isServer) return config;
 
-    return config;
-  });
+  const locale = window.location.pathname.split('/')[1];
 
-  // Response interceptor
-  instance.interceptors.response.use(
-    (response: AxiosResponse) => response,
-    (error) => {
-      // Handle errors globally unless suppressed
-      if (!error.config?.suppressError) {
-        handleApiError(error);
-      }
-      return Promise.reject(error);
-    }
-  );
+  if (locale) {
+    config.params = {
+      ...config.params,
+      locale,
+    };
+  }
 
-  return instance;
-};
-
-/**
- * Handles API errors globally
- */
-const handleApiError = (error: unknown) => {
-  // Implement your error handling logic here
-  // Could integrate with your error toast system
-  console.error('API Error:', error);
-};
-
-const api = createApi();
+  return config;
+});
 
 export default api;
